@@ -1,148 +1,61 @@
-# Herman Agent — README
+# 🌐 Website Herman Agent — Autonomous Enterprise Multi-Agent AI
 
-# 🤖 Herman Agent
+Website resmi mandiri (**Standalone Static Web**) untuk **Herman Agent** dengan desain **Hitam Putih Modern (Monochrome)** berstandar industri (*Vercel / Linear Aesthetic*).
 
-Platform AI Multi-Agent berbasis Python yang ringan, modular, dan dapat di-deploy dengan Docker.
+---
 
-## ✨ Fitur
+## 🚀 Fitur Unggulan Herman Agent yang Ditampilkan di Website
 
-- 🏠 **Dashboard** — Monitoring real-time statistik dan sistem
-- 💬 **Chat** — Real-time streaming dengan berbagai agent AI
-- 🤖 **Agent** — CS, Sales, HR, IT, GA, Manager, Purchasing, Custom
-- 🔌 **Integration** — Database, REST API, ERP, Cloud, Email, Script
-- 📚 **Knowledge Base** — RAG dengan ChromaDB, PDF/DOCX/URL
-- 📡 **Channel** — WhatsApp (Baileys), Telegram, Web Widget
-- 🧠 **Memory & Skill** — Episodic, Semantic, Procedural memory
-- ⏰ **Scheduler** — Cron jobs dan one-time tasks
-- 🛠 **MCP** — Model Context Protocol server management
-- 👤 **User** — RBAC, audit log, API key management
-- ⚙️ **Settings** — Konfigurasi global sistem
+Berdasarkan arsitektur aktual di dalam kode sumber Herman Agent:
 
-## 🚀 Quick Start
+1. **Autonomous Skills Engine (Bisa Bikin Tool & Integrasi Sendiri):**
+   - Agen mampu menulis, menguji, dan mendaftarkan script Python baru di folder `skills/` secara *on-the-fly*.
+   - Otomatis memvalidasi sintaks AST (*Abstract Syntax Tree*), menyusun *OpenAI Tool Schema*, dan me-reload fungsi secara dinamis (*zero downtime hot-reload*).
+   - Terhubung ke **Skills Hub & GitHub Taps** untuk instalasi 1-klik tool komunitas dari GitHub.
+2. **Sistem Memori 3 Tingkat (3-Tier Long-Term Memory):**
+   - **Episodic Memory:** Mengingat peristiwa percakapan lampau, tiket keluhan, dan interaksi lintas sesi.
+   - **Semantic Memory:** Menyimpan fakta penting tentang pengguna, termin bisnis, dan nama klien secara terstruktur.
+   - **Procedural Memory:** Mengingat langkah-langkah kerja, alur SOP, dan prosedur operasional yang pernah dipelajari.
+3. **Model Context Protocol (MCP) Server Manager:**
+   - Mendukung standar terbuka industri dari Anthropic (MCP).
+   - Manajemen server MCP via transport `stdio` (`npx`, `python`) dan `sse` (HTTP remote).
+   - Katalog preset resmi (@modelcontextprotocol/server-filesystem, server-postgres, server-brave-search).
+4. **Human-in-the-Loop (Approval Guard):**
+   - Pengaman aksi kritis: Eksekusi berisiko (drop tabel database, transaksi finansial bernilai besar, perintah sistem) seketika dijeda (*paused*).
+   - Notifikasi persetujuan multi-kanal: tombol persetujuan di **Web Dashboard**, tombol interaktif **Telegram Bot ([✅ Setujui] [❌ Tolak])**, dan pesan konfirmasi **WhatsApp**.
+5. **Divisi Agen Spesialis & RAG Knowledge Base:**
+   - 8 peran divisi siap pakai (CS, HR, Sales, IT Support, GA, Manager, Purchasing).
+   - Basis data vektor ChromaDB lokal untuk dokumen SOP internal kantor (PDF, DOCX, TXT, URL).
+6. **Paket Lisensi On-Premise & Aktivasi WhatsApp:**
+   - **Free Trial 7 Hari (Rp 0):** Evaluasi penuh seluruh fitur AI tanpa batasan selama 1 minggu di server lokal.
+   - **Langganan Bulanan (Rp 99.000 / bulan):** Akses penuh enterprise tanpa batas, unlimited agen divisi, WhatsApp multi-session, dynamic skills engine, dan update prioritas.
+   - **WhatsApp Resmi Aktivasi Lisensi:** `+62 851-7963-0119` (https://wa.me/6285179630119).
+7. **Panduan Instalasi Kilat 1 Baris (Hermes Style):**
+   - Perintah 1 baris untuk Windows PowerShell dan Linux/macOS Bash.
+   - Tautan langsung ke GitHub Releases resmi:  
+     👉 `https://github.com/novichochalman-commits/herman-agent/releases`
 
-### Cara 1: Jalankan Langsung
+---
 
-```bash
-# 1. Clone/download project
-cd herman-agent
+## 📁 Struktur Folder `website/`
 
-# 2. Setup virtual environment
-python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Linux/Mac
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Copy dan edit konfigurasi
-copy .env.example .env
-# Edit .env sesuai kebutuhan
-
-# 5. Jalankan
-python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-### Cara 2: Docker
-
-```bash
-# 1. Copy .env
-copy .env.example .env
-# Edit .env
-
-# 2. Jalankan dengan Docker Compose
-cd docker
-docker-compose up -d
-
-# Lihat logs
-docker-compose logs -f herman-agent
-```
-
-## 🔑 Default Login
-
-- **URL**: http://localhost:8000
-- **Email**: admin@herman.local
-- **Password**: Admin@12345
-
-⚠️ **Ganti password setelah login pertama!**
-
-## 📁 Struktur Project
-
-```
-herman-agent/
-├── app/
-│   ├── main.py              # Entry point
-│   ├── config.py            # Settings
-│   ├── database.py          # Models
-│   ├── auth/                # Auth module
-│   ├── core/                # LLM, RAG, Memory, Scheduler
-│   ├── modules/             # Feature modules
-│   │   ├── dashboard/
-│   │   ├── chat/
-│   │   ├── agents/
-│   │   ├── knowledge/
-│   │   ├── integrations/
-│   │   ├── channels/
-│   │   ├── memory/
-│   │   └── ...
-│   ├── static/              # CSS, JS
-│   └── templates/           # HTML templates
-├── data/                    # Database & uploads
-├── docker/                  # Docker files
-├── requirements.txt
-├── .env.example
-└── README.md
-```
-
-## ⚙️ Konfigurasi (.env)
-
-| Variable | Default | Keterangan |
-|----------|---------|------------|
-| `SECRET_KEY` | *wajib diisi* | JWT secret key |
-| `ADMIN_EMAIL` | admin@herman.local | Email admin |
-| `ADMIN_PASSWORD` | Admin@12345 | Password admin |
-| `DEFAULT_AI_PROVIDER` | openai | Provider AI default |
-| `DEFAULT_OPENAI_API_KEY` | - | API Key OpenAI |
-| `TELEGRAM_BOT_TOKEN` | - | Token bot Telegram |
-| `TIMEZONE` | Asia/Jakarta | Timezone sistem |
-
-## 🤖 AI Provider yang Didukung
-
-| Provider | Konfigurasi |
-|----------|-------------|
-| OpenAI | API key + model (gpt-4o, gpt-4o-mini, dll.) |
-| Anthropic | API key + model (claude-3.5-sonnet, dll.) |
-| Google Gemini | API key + model (gemini-pro, dll.) |
-| Ollama | URL lokal (http://localhost:11434) |
-| Custom | URL endpoint + API key (OpenAI-compatible) |
-
-## 📡 Channel Setup
-
-### Telegram
-1. Chat @BotFather di Telegram
-2. Buat bot baru, salin token
-3. Di Herman Agent → Channel → Tambah Channel → Telegram
-4. Masukkan token, pilih agent
-
-### WhatsApp (via Baileys Bridge)
-1. Setup Node.js Baileys bridge service
-2. Konfigurasi BAILEYS_BRIDGE_URL di .env
-3. Di Herman Agent → Channel → Tambah Channel → WhatsApp
-4. Scan QR code
-
-## 📋 API Documentation
-
-Tersedia di `/docs` saat DEBUG=true
-
-## 🐳 Production Deployment
-
-```bash
-# Pastikan SECRET_KEY aman dan panjang
-SECRET_KEY=$(openssl rand -hex 32)
-
-# Jalankan dengan Docker
-docker-compose -f docker/docker-compose.yml up -d
+```text
+website/
+├── index.html       # Halaman landing page lengkap dengan tipografi Space Grotesk + Plus Jakarta Sans
+├── style.css        # Desain Vanilla CSS hitam-putih, micro-borders, dan layout bento grid
+├── script.js        # Logika tab OS instalasi, copy 1-klik clipboard, agent workbench, dan drawer mobile
+└── README.md        # Panduan fitur dan hosting
 ```
 
 ---
 
-*Herman Agent v1.0 — Built with FastAPI, SQLite, ChromaDB*
+## 💻 Cara Menghosting Website Sendiri
+
+Website ini berstatus **100% Client-Side Static Web** (tanpa dependensi backend Node.js atau Python):
+
+1. **Vercel / Netlify:** Cukup tarik (*drag-and-drop*) folder `website/` ke dashboard Netlify ([app.netlify.com/drop](https://app.netlify.com/drop)) atau sambungkan ke repo GitHub di Vercel.
+2. **GitHub Pages:** Masukkan file `index.html`, `style.css`, dan `script.js` ke repository GitHub, lalu aktifkan Pages di Settings.
+3. **Server Lokal / VPS Nginx:** Salin seluruh file ke folder root web server Anda (`/var/www/html/`).
+
+#### Preview Lokal di Komputer:
+Cukup klik dua kali file `index.html` untuk membuka langsung di Google Chrome atau Microsoft Edge.
